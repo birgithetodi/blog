@@ -2,7 +2,7 @@
 @section('content')
     <a href="https://youtu.be/OxstMK_Gkzw?si=TrrnTxRcUKlb3g_v"
    target="_blank"
-   class="bg-pink-500 text-white px-4 py-2 rounded border border-pink-500 hover:bg-pink-600">
+    class="bg-blue-400 hover:bg-blue-500 text-white py-1 px-4 rounded">
     beekaboo
 </a>
     <div class="inline-flex mt-6">
