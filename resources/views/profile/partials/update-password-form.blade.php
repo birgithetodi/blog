@@ -1,9 +1,7 @@
+
 <section>
     <header class="mb-6">
-        <h2 class="text-lg font-semibold">
-            {{ __('Update Password') }}
-        </h2>
-
+        <h2 class="text-lg font-semibold">{{ __('Update Password') }}</h2>
         <p class="text-sm opacity-70 mt-1">
             {{ __('Ensure your account is using a long, random password to stay secure.') }}
         </p>
@@ -13,61 +11,51 @@
         @csrf
         @method('PUT')
 
-        {{-- Current Password --}}
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">{{ __('Current Password') }}</legend>
-
+        <label class="form-control w-full">
+            <span class="label-text mb-2">{{ __('Current Password') }}</span>
             <input
-                id="current_password"
                 name="current_password"
                 type="password"
                 class="input input-bordered w-full @error('current_password', 'updatePassword') input-error @enderror"
+                required
                 autocomplete="current-password"
             >
-
             @error('current_password', 'updatePassword')
-                <p class="text-error text-sm">{{ $message }}</p>
+                <span class="text-error text-sm mt-1">{{ $message }}</span>
             @enderror
-        </fieldset>
+        </label>
 
-        {{-- New Password --}}
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">{{ __('New Password') }}</legend>
-
+        <label class="form-control w-full">
+            <span class="label-text mb-2">{{ __('New Password') }}</span>
             <input
-                id="password"
                 name="password"
                 type="password"
                 class="input input-bordered w-full @error('password', 'updatePassword') input-error @enderror"
+                required
                 autocomplete="new-password"
             >
-
             @error('password', 'updatePassword')
-                <p class="text-error text-sm">{{ $message }}</p>
+                <span class="text-error text-sm mt-1">{{ $message }}</span>
             @enderror
-        </fieldset>
+        </label>
 
-        {{-- Confirm New Password --}}
-        <fieldset class="fieldset">
-            <legend class="fieldset-legend">{{ __('Confirm Password') }}</legend>
-
+        <label class="form-control w-full">
+            <span class="label-text mb-2">{{ __('Confirm Password') }}</span>
             <input
-                id="password_confirmation"
                 name="password_confirmation"
                 type="password"
                 class="input input-bordered w-full"
+                required
                 autocomplete="new-password"
             >
-        </fieldset>
+        </label>
 
-        <div class="flex items-center gap-4 pt-2">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Save') }}
-            </button>
+        @if (session('status') === 'password-updated')
+            <div role="alert" class="alert alert-success">
+                <span>{{ __('Password updated successfully.') }}</span>
+            </div>
+        @endif
 
-            @if (session('status') === 'password-updated')
-                <span class="text-sm text-success">{{ __('Saved.') }}</span>
-            @endif
-        </div>
+        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
     </form>
 </section>

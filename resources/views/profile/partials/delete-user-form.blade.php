@@ -1,9 +1,7 @@
+
 <section>
     <header class="mb-6">
-        <h2 class="text-lg font-semibold text-error">
-            {{ __('Delete Account') }}
-        </h2>
-
+        <h2 class="text-lg font-semibold text-error">{{ __('Delete Account') }}</h2>
         <p class="text-sm opacity-70 mt-1">
             {{ __('Once your account is deleted, all of its resources and data will be permanently deleted.') }}
         </p>
@@ -27,27 +25,23 @@
                 {{ __('Please enter your password to confirm you would like to permanently delete your account.') }}
             </p>
 
-            <form method="POST" action="{{ route('profile.destroy') }}" class="space-y-4">
+            <form method="POST" action="{{ route('profile.destroy') }}">
                 @csrf
                 @method('DELETE')
 
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">{{ __('Password') }}</legend>
-
+                <label class="form-control w-full">
+                    <span class="label-text mb-2">{{ __('Password') }}</span>
                     <input
-                        id="delete_password"
                         name="password"
                         type="password"
                         class="input input-bordered w-full @error('password', 'userDeletion') input-error @enderror"
-                        placeholder="{{ __('Password') }}"
                         required
                         autocomplete="current-password"
                     >
-
                     @error('password', 'userDeletion')
-                        <p class="text-error text-sm">{{ $message }}</p>
+                        <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
+                </label>
 
                 <div class="modal-action">
                     <button
@@ -66,7 +60,7 @@
         </div>
 
         <form method="dialog" class="modal-backdrop">
-            <button>{{ __('Close') }}</button>
+            <button aria-label="{{ __('Close') }}"> </button>
         </form>
     </dialog>
 </section>

@@ -8,11 +8,11 @@
                     @lang('Log in')
                 </h1>
 
-                {{-- Session Status --}}
-                <x-auth-session-status
-                    class="mb-4"
-                    :status="session('status')"
-                />
+                @if (session('status'))
+                    <div role="alert" class="alert alert-success mb-4">
+                        <span>{{ session('status') }}</span>
+                    </div>
+                @endif
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -23,15 +23,9 @@
                             @lang('Email')
                         </legend>
 
-                        <input
-                            name="email"
-                            value="{{ old('email') }}"
-                            type="email"
-                            class="input input-bordered w-full @error('email') input-error @enderror"
-                            required
-                            autofocus
-                            autocomplete="username"
-                        />
+                        <input name="email" value="{{ old('email') }}" type="email"
+                            class="input input-bordered w-full @error('email') input-error @enderror" required autofocus
+                            autocomplete="username" />
 
                         @error('email')
                             <p class="text-error text-sm mt-1">
@@ -46,13 +40,9 @@
                             @lang('Password')
                         </legend>
 
-                        <input
-                            name="password"
-                            type="password"
-                            class="input input-bordered w-full @error('password') input-error @enderror"
-                            required
-                            autocomplete="current-password"
-                        />
+                        <input name="password" type="password"
+                            class="input input-bordered w-full @error('password') input-error @enderror" required
+                            autocomplete="current-password" />
 
                         @error('password')
                             <p class="text-error text-sm mt-1">
@@ -64,11 +54,7 @@
                     {{-- Remember Me --}}
                     <fieldset class="fieldset mb-4">
                         <label class="label cursor-pointer justify-start gap-2">
-                            <input
-                                name="remember"
-                                type="checkbox"
-                                class="checkbox checkbox-primary"
-                            />
+                            <input name="remember" type="checkbox" class="checkbox checkbox-primary" />
                             <span>@lang('Remember me')</span>
                         </label>
                     </fieldset>
@@ -76,10 +62,7 @@
                     {{-- Actions --}}
                     <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 mt-6">
                         @if (Route::has('password.request'))
-                            <a
-                                class="link link-hover text-sm"
-                                href="{{ route('password.request') }}"
-                            >
+                            <a class="link link-hover text-sm" href="{{ route('password.request') }}">
                                 {{ __('Forgot your password?') }}
                             </a>
                         @endif

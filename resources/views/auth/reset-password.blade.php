@@ -1,90 +1,62 @@
-```blade
-<x-guest-layout>
-    <div class="card bg-base-200 shadow-xl w-full max-w-md mx-auto">
+
+@extends('partials.layout')
+
+@section('content')
+<div class="container mx-auto px-4 py-8">
+    <div class="card bg-base-200 shadow-xl max-w-md mx-auto">
         <div class="card-body">
-            <h1 class="card-title text-2xl justify-center mb-4">
-                {{ __('Reset Password') }}
-            </h1>
+            <h1 class="card-title">{{ __('Reset Password') }}</h1>
 
             <form method="POST" action="{{ route('password.store') }}">
                 @csrf
 
-                {{-- Password Reset Token --}}
-                <input
-                    type="hidden"
-                    name="token"
-                    value="{{ $request->route('token') }}"
-                >
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                {{-- Email Address --}}
-                <fieldset class="fieldset mb-4">
-                    <legend class="fieldset-legend">
-                        {{ __('Email') }}
-                    </legend>
-
+                <label class="form-control w-full mb-4">
+                    <span class="label-text mb-2">{{ __('Email') }}</span>
                     <input
-                        id="email"
-                        name="email"
                         type="email"
+                        name="email"
                         value="{{ old('email', $request->email) }}"
-                        class="input input-bordered w-full @error('email') input-error @enderror"
+                        class="input input-bordered w-full"
                         required
-                        autofocus
                         autocomplete="username"
                     >
-
                     @error('email')
-                        <p class="text-error text-sm mt-1">{{ $message }}</p>
+                        <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
+                </label>
 
-                {{-- Password --}}
-                <fieldset class="fieldset mb-4">
-                    <legend class="fieldset-legend">
-                        {{ __('Password') }}
-                    </legend>
-
+                <label class="form-control w-full mb-4">
+                    <span class="label-text mb-2">{{ __('Password') }}</span>
                     <input
-                        id="password"
+                        type="password"
                         name="password"
-                        type="password"
-                        class="input input-bordered w-full @error('password') input-error @enderror"
+                        class="input input-bordered w-full"
                         required
                         autocomplete="new-password"
                     >
-
                     @error('password')
-                        <p class="text-error text-sm mt-1">{{ $message }}</p>
+                        <span class="text-error text-sm mt-1">{{ $message }}</span>
                     @enderror
-                </fieldset>
+                </label>
 
-                {{-- Confirm Password --}}
-                <fieldset class="fieldset mb-4">
-                    <legend class="fieldset-legend">
-                        {{ __('Confirm Password') }}
-                    </legend>
-
+                <label class="form-control w-full mb-4">
+                    <span class="label-text mb-2">{{ __('Confirm Password') }}</span>
                     <input
-                        id="password_confirmation"
-                        name="password_confirmation"
                         type="password"
-                        class="input input-bordered w-full @error('password_confirmation') input-error @enderror"
+                        name="password_confirmation"
+                        class="input input-bordered w-full"
                         required
                         autocomplete="new-password"
                     >
+                </label>
 
-                    @error('password_confirmation')
-                        <p class="text-error text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </fieldset>
-
-                <div class="flex justify-end mt-6">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Reset Password') }}
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-primary w-full">
+                    {{ __('Reset Password') }}
+                </button>
             </form>
         </div>
     </div>
-</x-guest-layout>
-```
+</div>
+@endsection
