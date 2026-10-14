@@ -12,7 +12,7 @@
                 <li>
                     <a>Admin</a>
                     <ul class="p-2">
-                       <li><a href="{{ route('posts.index') }}">Posts</a></li>
+                        <li><a href="{{ route('posts.index') }}">Posts</a></li>
                         <li><a>Submenu 2</a></li>
                     </ul>
                 </li>
@@ -36,7 +36,8 @@
             <li><a>Item 3</a></li>
         </ul>
     </div>
-    <div class="navbar-end">
-        <a class="btn">Button</a>
+    <div class="navbar-end gap-2">
+        <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
+        <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
     </div>
 </div>
