@@ -8,6 +8,7 @@
                     @lang('Log in')
                 </h1>
 
+                {{-- Session Status --}}
                 @if (session('status'))
                     <div role="alert" class="alert alert-success mb-4">
                         <span>{{ session('status') }}</span>
@@ -23,14 +24,19 @@
                             @lang('Email')
                         </legend>
 
-                        <input name="email" value="{{ old('email') }}" type="email"
-                            class="input input-bordered w-full @error('email') input-error @enderror" required autofocus
-                            autocomplete="username" />
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value="{{ old('email') }}"
+                            class="input w-full @error('email') input-error @enderror"
+                            required
+                            autofocus
+                            autocomplete="username"
+                        />
 
                         @error('email')
-                            <p class="text-error text-sm mt-1">
-                                {{ $message }}
-                            </p>
+                            <p class="label text-error">{{ $message }}</p>
                         @enderror
                     </fieldset>
 
@@ -40,21 +46,29 @@
                             @lang('Password')
                         </legend>
 
-                        <input name="password" type="password"
-                            class="input input-bordered w-full @error('password') input-error @enderror" required
-                            autocomplete="current-password" />
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            class="input w-full @error('password') input-error @enderror"
+                            required
+                            autocomplete="current-password"
+                        />
 
                         @error('password')
-                            <p class="text-error text-sm mt-1">
-                                {{ $message }}
-                            </p>
+                            <p class="label text-error">{{ $message }}</p>
                         @enderror
                     </fieldset>
 
                     {{-- Remember Me --}}
                     <fieldset class="fieldset mb-4">
                         <label class="label cursor-pointer justify-start gap-2">
-                            <input name="remember" type="checkbox" class="checkbox checkbox-primary" />
+                            <input
+                                id="remember"
+                                name="remember"
+                                type="checkbox"
+                                class="checkbox checkbox-primary"
+                            />
                             <span>@lang('Remember me')</span>
                         </label>
                     </fieldset>
@@ -62,13 +76,13 @@
                     {{-- Actions --}}
                     <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 mt-6">
                         @if (Route::has('password.request'))
-                            <a class="link link-hover text-sm" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                @lang('Forgot your password?')
                             </a>
                         @endif
 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Log in') }}
+                            @lang('Log in')
                         </button>
                     </div>
                 </form>
