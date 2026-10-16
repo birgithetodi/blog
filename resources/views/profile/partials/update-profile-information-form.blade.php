@@ -1,75 +1,90 @@
+@php
+    $user = $user ?? Auth::user();
+@endphp
 
-<section>
-    <header class="mb-6">
-        <h2 class="text-lg font-semibold">{{ __('Profile Information') }}</h2>
-        <p class="text-sm opacity-70 mt-1">
+<section class="card bg-base-100 shadow-md">
+    <div class="card-body">
+        <h2 class="card-title text-xl">
+            {{ __('Profile Information') }}
+        </h2>
+
+        <p class="text-base-content/70">
             {{ __("Update your account's profile information and email address.") }}
         </p>
-    </header>
 
-    <form method="POST" action="{{ route('profile.update') }}" class="space-y-4">
-        @csrf
-        @method('PATCH')
-
-        <label class="form-control w-full">
-            <span class="label-text mb-2">{{ __('Name') }}</span>
-            <input
-                id="name"
-                name="name"
-                type="text"
-                value="{{ old('name', $user->name) }}"
-                class="input input-bordered w-full"
-                required
-                autocomplete="name"
-            >
-            @error('name')
-                <span class="text-error text-sm mt-1">{{ $message }}</span>
-            @enderror
-        </label>
-
-        <label class="form-control w-full">
-            <span class="label-text mb-2">{{ __('Email') }}</span>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                value="{{ old('email', $user->email) }}"
-                class="input input-bordered w-full"
-                required
-                autocomplete="username"
-            >
-            @error('email')
-                <span class="text-error text-sm mt-1">{{ $message }}</span>
-            @enderror
-        </label>
-
-        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-            <div class="alert alert-warning">
-                <span>{{ __('Your email address is unverified.') }}</span>
-            </div>
-        @endif
-
-        @if (session('status') === 'verification-link-sent')
-            <div role="alert" class="alert alert-success">
-                <span>{{ __('A new verification link has been sent to your email address.') }}</span>
-            </div>
-        @endif
-
-        <div class="flex items-center gap-4">
-            <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
-
-            @if (session('status') === 'profile-updated')
-                <span class="text-sm text-success">{{ __('Saved.') }}</span>
-            @endif
-        </div>
-    </form>
-
-    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-        <form method="POST" action="{{ route('verification.send') }}" class="mt-4">
+        <form method="POST" action="{{ route('profile.update') }}" class="mt-4">
             @csrf
-            <button type="submit" class="btn btn-outline btn-sm">
-                {{ __('Resend verification email') }}
-            </button>
+            @method('PATCH')
+
+            <fieldset class="fieldset mb-4">
+                <legend class="fieldset-legend">{{ __('Name') }}</legend>
+
+                <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value="{{ old('name', $user->name) }}"
+                    class="input w-full @error('name') input-error @enderror"
+                    required
+                    autofocus
+                    autocomplete="name"
+                />
+
+                @error('name')
+                    <p class="label text-error">{{ $message }}</p>
+                @enderror
+            </fieldset>
+
+            <fieldset class="fieldset mb-4">
+                <legend class="fieldset-legend">{{ __('Email') }}</legend>
+
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value="{{ old('email', $user->email) }}"
+                    class="input w-full @error('email') input-error @enderror"
+                    required
+                    autocomplete="username"
+                />
+
+                @error('email')
+                    <p class="label text-error">{{ $message }}</p>
+                @enderror
+            </fieldset>
+
+            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                <div class="mt-2">
+                    <p class="text-sm">
+                        {{ __('Your email address is unverified.') }}
+                    </p>
+
+                    <form method="POST" action="{{ route('verification.send') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link">
+                            {{ __('Click here to re-send the verification email.') }}
+                        </button>
+                    </form>
+
+                    @if (session('status') === 'verification-link-sent')
+                        <div role="alert" class="alert alert-success mt-2">
+                            {{ __('A new verification link has been sent to your email address.') }}
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            <div class="flex items-center gap-4 mt-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Save') }}
+                </button>
+
+                @if (session('status') === 'profile-updated')
+                    <div role="alert" class="alert alert-success py-2">
+                        {{ __('Saved.') }}
+                    </div>
+                @endif
+            </div>
         </form>
-    @endif
+    </div>
 </section>
