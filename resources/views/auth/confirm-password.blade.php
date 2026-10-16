@@ -7,26 +7,26 @@
         <div class="card-body">
             <h1 class="card-title">{{ __('Confirm Password') }}</h1>
 
-            <p class="text-sm mb-4">
+            <p class="mb-4">
                 {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
             </p>
 
             <form method="POST" action="{{ route('password.confirm') }}">
                 @csrf
 
-                <label class="form-control w-full mb-4">
-                    <span class="label-text mb-2">{{ __('Password') }}</span>
+                <fieldset class="fieldset mb-4">
+                    <legend class="fieldset-legend">{{ __('Password') }}</legend>
                     <input
-                        type="password"
                         name="password"
-                        class="input input-bordered w-full"
+                        type="password"
+                        class="input w-full @error('password') input-error @enderror"
                         required
                         autocomplete="current-password"
                     >
                     @error('password')
-                        <span class="text-error text-sm mt-1">{{ $message }}</span>
+                        <p class="label text-error">{{ $message }}</p>
                     @enderror
-                </label>
+                </fieldset>
 
                 <button type="submit" class="btn btn-primary w-full">
                     {{ __('Confirm') }}

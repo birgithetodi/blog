@@ -7,7 +7,7 @@
         <div class="card-body">
             <h1 class="card-title">{{ __('Forgot your password?') }}</h1>
 
-            <p class="text-sm mb-4">
+            <p class="mb-4">
                 {{ __('No problem. Just let us know your email address and we will email you a password reset link.') }}
             </p>
 
@@ -20,21 +20,21 @@
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
 
-                <label class="form-control w-full mb-4">
-                    <span class="label-text mb-2">{{ __('Email') }}</span>
+                <fieldset class="fieldset mb-4">
+                    <legend class="fieldset-legend">{{ __('Email') }}</legend>
                     <input
-                        type="email"
                         name="email"
+                        type="email"
                         value="{{ old('email') }}"
-                        class="input input-bordered w-full"
+                        class="input w-full @error('email') input-error @enderror"
                         required
                         autofocus
                         autocomplete="username"
                     >
                     @error('email')
-                        <span class="text-error text-sm mt-1">{{ $message }}</span>
+                        <p class="label text-error">{{ $message }}</p>
                     @enderror
-                </label>
+                </fieldset>
 
                 <button type="submit" class="btn btn-primary w-full">
                     {{ __('Email Password Reset Link') }}
