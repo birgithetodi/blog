@@ -87,9 +87,7 @@ This updates the database structure.
 
 11.1. If asked to create the SQLite database, select **Yes**.
 
-12. Start the development server.
-
-```bash
-composer run dev
-```
+ `php artisan storage:link`
+ 
+12. run laravel `composer run dev`
 This starts the required local development services.
