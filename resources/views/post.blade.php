@@ -3,6 +3,12 @@
     <div class="container mx-auto">
         @include('partials.post-card')
         <h1>Comments:</h1>
+        {{-- 
+            1. add form here to add comment use @auth to only show when logged in (look how posts/create.blade.php is done)
+            2. add route that takes route parameter for post (id) and use CommentController store method
+            3. Fix StoreCommentRequest to allow requests (authorize return true) and add validation to require body field
+            4. Add Post $post to store method in CommentController and add logic to create new Comment and fill its body and associate post and user (look at PostController store method)
+        --}}
           <form action="{{ route('comment', $post) }}" method="POST" enctype="multipart/form-data"
             class="card bg-base-200 shadow-sm mx-auto p-3">
 
