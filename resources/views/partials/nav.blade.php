@@ -14,11 +14,9 @@
                         <a>Admin</a>
                         <ul class="p-2">
                             <li><a href="{{ route('posts.index') }}">Posts</a></li>
-                            <li><a>Submenu 2</a></li>
                         </ul>
                     </li>
                 @endauth
-                <li><a>Item 3</a></li>
             </ul>
         </div>
         <a class="btn btn-ghost text-xl" href="{{ route('home') }}">{{ config('app.name') }}</a>
@@ -32,12 +30,11 @@
                         <summary>Admin</summary>
                         <ul class="p-2 bg-base-100 w-40 z-1">
                             <li><a href="{{ route('posts.index') }}">Posts</a></li>
-                            <li><a>Submenu 2</a></li>
+                             <li><a href="{{ route('tags.index') }}">Tags</a></li>
                         </ul>
                     </details>
                 </li>
             @endauth
-            <li><a>Item 3</a></li>
         </ul>
     </div>
     <div class="navbar-end gap-2">

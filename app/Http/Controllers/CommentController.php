@@ -32,9 +32,14 @@ class CommentController extends Controller
      public function store(StoreCommentRequest $request, Post $post)
     {
         $comment = new Comment($request->validated());
-        $comment->user()->associate(Auth::user());
-         $comment->post()->associate($post);
+
+        $comment->user()->associate(auth()->user());
+        $comment->post()->associate($post);
+
+        $comment->user_id = auth()->id();
+
         $comment->save();
+
         return redirect()->back();
     }
 
