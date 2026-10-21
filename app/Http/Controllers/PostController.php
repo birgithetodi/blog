@@ -40,8 +40,8 @@ class PostController extends Controller
         // $post->body = $request->input('body');
         $post->user()->associate(Auth::user());
         $post->save();
-         if($request->file('image')) {
-            $image = $request->file('image')->store('', ['disk' => 'public']);
+         foreach($request->file('images') as $file) {
+            $image = $file->store('', ['disk' => 'public']);
             $url = Storage::url($image);
 
          $image = new Image();
