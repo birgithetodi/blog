@@ -1,17 +1,17 @@
 @extends('partials.layout')
 @section('content')
     <div class="container mx-auto">
-        <div class="card bg-base-300 shadow-sm">
-            {{-- <figure>
-                        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
-                    </figure> --}}
-            <div class="card-body">
-                <h2 class="card-title">{{ $post->title }}</h2>
-                <p>{!! $post->displayBody !!}</p>
-                <div class="card-actions justify-end">
-                    
+        @include('partials.post-card')
+        <h1>Comments:</h1>
+        @foreach($post->comments as $comment)
+            <div class="card bg-base-300 shadow-sm mt-2">
+                <div class="card-body">
+                    <p>{{ $comment->body }}</p>
+                    <span class="text-base-content/70">{{ $comment->user->name }}</span>
+                    <span class="text-base-content/70">{{ $comment->created_at->diffForHumans() }}</span>
+                    <div class="card-actions justify-end"></div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 @endsection
