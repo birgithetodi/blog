@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-         /** @var App\Models\User $user */
+        /** @var App\Models\User $user */
         $user = Auth::user();
         $posts = $user->posts()->latest()->paginate(16);
         return view('posts.index', compact('posts'));
@@ -28,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-         $tags = Tag::all();
+        $tags = Tag::all();
         return view('posts.create', compact('tags'));
     }
 
@@ -42,16 +42,16 @@ class PostController extends Controller
         // $post->body = $request->input('body');
         $post->user()->associate(Auth::user());
         $post->save();
-         foreach($request->file('images') as $file) {
+        foreach($request->file('images') ?? [] as $file) {
             $image = $file->store('', ['disk' => 'public']);
             $url = Storage::url($image);
 
-         $image = new Image();
+            $image = new Image();
             $image->path = $url;
             $image->post()->associate($post);
             $image->save();
         }
-
+        $post->tags()->attach($request->input('tags'));
         return redirect()->route('posts.index');
     }
 
