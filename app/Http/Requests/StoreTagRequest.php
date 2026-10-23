@@ -10,9 +10,9 @@ class StoreTagRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,10 +20,10 @@ class StoreTagRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|unique:tags,name',
         ];
     }
 }
