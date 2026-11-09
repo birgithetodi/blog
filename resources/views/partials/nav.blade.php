@@ -1,3 +1,4 @@
+
 <div class="navbar bg-base-100 shadow-sm">
     <div class="navbar-start">
         <div class="dropdown">
@@ -18,10 +19,22 @@
                         </ul>
                     </li>
                 @endauth
+
+                @foreach(App\Models\Category::where('parent_id', null)->get() as $category)
+                    <li>
+                        <a>{{ $category->name }}</a>
+                        <ul class="p-2">
+                            @foreach($category->children as $child)
+                                <li><a>{{ $child->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <a class="btn btn-ghost text-xl" href="{{ route('home') }}">{{ config('app.name') }}</a>
     </div>
+
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
             <li><a href="{{ route('buttons') }}">Buttons</a></li>
@@ -31,13 +44,27 @@
                         <summary>Admin</summary>
                         <ul class="p-2 bg-base-100 w-40 z-1">
                             <li><a href="{{ route('posts.index') }}">Posts</a></li>
-                             <li><a href="{{ route('tags.index') }}">Tags</a></li>
+                            <li><a href="{{ route('tags.index') }}">Tags</a></li>
                         </ul>
                     </details>
                 </li>
             @endauth
+
+            @foreach(App\Models\Category::where('parent_id', null)->get() as $category)
+                <li>
+                    <details>
+                        <summary>{{ $category->name }}</summary>
+                        <ul class="p-2 bg-base-100 w-40 z-1">
+                            @foreach($category->children as $child)
+                                <li><a>{{ $child->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </details>
+                </li>
+            @endforeach
         </ul>
     </div>
+
     <div class="navbar-end gap-2">
         @auth
             <div class="dropdown dropdown-end">
@@ -50,13 +77,11 @@
                             <button>Logout</button>
                         </form>
                     </li>
-
                 </ul>
             </div>
         @else
             <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
             <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
         @endauth
-
     </div>
 </div>
