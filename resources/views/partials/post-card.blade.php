@@ -20,13 +20,17 @@
              <p>{!! $post->displayBody !!}</p>
          @endisset
         <span class="text-base-content/70">
-             <a href="{{ route('user', $post->user) }}" class="btn btn-link">
-                 {{ $post->user->name }}
-             </a>
+             @if($post->user)
+    <a href="{{ route('user', ['user' => $post->user->id]) }}" class="btn btn-link">
+        {{ $post->user->name }}
+    </a>
+@else
+    <span class="btn btn-link">Unknown user</span>
+@endif
          </span>
          <span class="text-base-content/70">{{ $post->created_at->diffForHumans() }}</span>
           <span class="text-base-content/70"><b>Comments:</b> {{ $post->comments_count }}</span>
-         <div>
+         <div class="flex flex-wrap gap-1">
              @foreach ($post->tags as $tag)
                  <div class="badge badge-outline badge-primary">{{ $tag->name }}</div>
              @endforeach
