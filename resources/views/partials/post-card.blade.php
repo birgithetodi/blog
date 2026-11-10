@@ -21,7 +21,7 @@
         @endisset
         <span class="text-base-content/70">
             @if ($post->user)
-                <a href="{{ route('user', ['user' => $post->user->id]) }}" class="btn btn-link">
+                <a href="{{ route('user', $post->user) }}" class="btn btn-link">
                     {{ $post->user->name }}
                 </a>
             @else

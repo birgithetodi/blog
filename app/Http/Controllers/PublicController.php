@@ -15,10 +15,16 @@ class PublicController extends Controller
         return view('welcome', compact('posts'));
     }
 
-     public function user(User $user) {
-       $posts = $user->posts()->with('images', 'user', 'tags')->withCount('comments')->latest()->simplePaginate(16);
-        return view('welcome', compact('posts', 'user'));
-    }
+    public function user(User $user)
+{
+    $posts = $user->posts()
+        ->with('images', 'user', 'tags')
+        ->withCount('comments')
+        ->latest()
+        ->simplePaginate(16);
+
+    return view('welcome', compact('posts', 'user'));
+}
 
     public function buttons() {
         return view('buttons');
