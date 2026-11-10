@@ -40,6 +40,7 @@
             <li><a href="{{ route('buttons') }}">Buttons</a></li>
             @auth
                 <li>
+                    <li><a href="{{ route('feed') }}">Feed</a></li>
                     <details>
                         <summary>Admin</summary>
                         <ul class="p-2 bg-base-100 w-40 z-1">
