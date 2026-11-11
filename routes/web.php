@@ -10,6 +10,7 @@ use App\Http\Controllers\TagController;
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/buttons', [PublicController::class, 'buttons'])->name('buttons');
 Route::get('/user/{user}', [PublicController::class, 'user'])->name('user');
+Route::post('/post/{post}', [PublicController::class, 'like'])->name('like')->middleware('auth');
 Route::post('/user/{user}', [PublicController::class, 'follow'])->name('follow')->middleware('auth');
 Route::get('/feed', [PublicController::class, 'feed'])->name('feed')->middleware('auth');
 
