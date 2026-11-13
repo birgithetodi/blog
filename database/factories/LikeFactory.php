@@ -1,40 +1,23 @@
 <?php
 
-use App\Models\Post;
-use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace Database\Factories;
+use App\Models\Like;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-return new class extends Migration
+/**
+ * @extends Factory<Like>
+ */
+class LikeFactory extends Factory
 {
     /**
-     * Run the migrations.
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
      */
-    public function up(): void
+    public function definition(): array
     {
-        Schema::create('likes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-
-            //$table->tinyInteger('value'); // -1 => dislike, 1 => like  Youtube
-
-            //$table->enum('value', ['👍', '😊', '😭', '💚', '🤬', '💩']); // facebook style reactions
-
-            // $table->string('value', 10); // discord, teams etc
-            // $table->unique(['user_id', 'post_id', 'value']);
-
-            $table->unique(['user_id', 'post_id']);
-            $table->timestamps();
-        });
+        return [
+            //
+        ];
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('likes');
-    }
-};
+}
